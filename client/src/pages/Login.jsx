@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Heading from "../components/heading";
+import Heading from "../components/Heading";
 import IndexBox from "../components/IndexBox";
 import Button from "../components/Button";
 import googleIcon from "../assets/devicon_google.svg";
