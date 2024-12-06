@@ -10,7 +10,7 @@ const IndexBox = ({ setInput, type, name, id, inputValue, label, style }) => {
         {label}
       </label>
       <input
-        className="w-80 p-2 border border-solid border-black rounded-lg"
+        className="md:w-80 w-60 p-2 border border-solid border-black rounded-lg"
         type={TypeValue}
         name={name}
         id={id}

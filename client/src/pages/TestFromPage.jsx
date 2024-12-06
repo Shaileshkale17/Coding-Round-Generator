@@ -218,7 +218,7 @@ const TestFromPage = () => {
           setInput={setTechnology}
           inputValue={Technology}
         />
-        <Button type="submit" label="Filter" style="px-5 py-2 mt-8" />
+        <Button type="submit" label="Filter" style="px-5 py-2 mt-5" />
       </form>
 
       <div className="overflow-x-auto w-full mt-10">

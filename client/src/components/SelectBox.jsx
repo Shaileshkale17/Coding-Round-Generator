@@ -3,7 +3,7 @@ const SelectBox = ({ label, optionMap, setInput, inputValue }) => {
     <div className="flex flex-col">
       <label>{label}</label>
       <select
-        className="border rounded p-2 w-80  border-solid border-black "
+        className="md:w-80 w-60 border rounded p-2 w-80  border-solid border-black "
         value={inputValue}
         onChange={(e) => setInput(e.target.value)}>
         <option value="" disabled>
