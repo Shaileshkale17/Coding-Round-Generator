@@ -116,7 +116,7 @@ const ProfilePage = () => {
       {/* Modal */}
       {isEditModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg w-1/3">
+          <div className="bg-white p-6 rounded-lg md:w-1/3 w-full">
             <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
             <form onSubmit={handleSave}>
               <div className="mb-4">
