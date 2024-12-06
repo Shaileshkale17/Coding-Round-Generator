@@ -1,8 +1,9 @@
 import React from "react";
 
-const Button = ({ label, style, type }) => {
+const Button = ({ label, style, type, onClick }) => {
   return (
     <button
+      onClick={onClick}
       className={`px-5 py-2 rounded-lg hover:bg-white  bg-black hover:text-black text-white  border border-solid border-black hover:border-black ${style}`}
       type={type}>
       {label}
