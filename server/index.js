@@ -6,7 +6,7 @@ import session from "express-session";
 import ConnectionDB from "./Data/index.js";
 import QuestionsRouter from "../server/routers/Questions.routes.js";
 import AuthRouter from "./routers/auth.routes.js";
-
+import cors from "cors";
 dotenv.config();
 const app = express();
 
@@ -14,7 +14,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(
+  cors({
+    origin: process.env.ORIGIN,
+    credentials: true,
+  })
+);
 // sessions setup
 
 app.use(

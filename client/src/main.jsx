@@ -8,10 +8,12 @@ import Singup from "./pages/Singup";
 import TestFromPage from "./pages/TestFromPage";
 import ProfilePage from "./pages/profilePage";
 import NotFoundPage from "./pages/NotFoundPage";
+
 const routers = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: "/",
@@ -30,7 +32,6 @@ const routers = createBrowserRouter([
         element: <ProfilePage />,
       },
     ],
-    errorElement: <NotFoundPage />,
   },
 ]);
 createRoot(document.getElementById("root")).render(

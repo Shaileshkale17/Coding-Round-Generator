@@ -4,6 +4,7 @@ import IndexBox from "../components/IndexBox";
 import Button from "../components/Button";
 import googleIcon from "../assets/devicon_google.svg";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [email, SetEmail] = useState("");
@@ -13,9 +14,16 @@ const Login = () => {
     e.preventDefault();
     Navigate("/test-from-page");
   };
-  const headerGoogleAuth = () => {
-    console.log("Google Auth");
+  const headerGoogleAuth = async () => {
+    console.log("Starting Google Auth login...");
+    try {
+      const response = await axios.get(`http://localhost:8080/api/auth/google`);
+      console.log("Google Auth response:", response);
+    } catch (error) {
+      console.error("Error during Google Auth login:", error.message);
+    }
   };
+
   return (
     <div className="h-[83.9vh] flex justify-center items-center">
       <div className="md:h-4/6 md:w-2/6 w-[88.333333%] h-[74.666667%]  bg-transparent  border  border-solid border-black rounded-lg flex items-center justify-center flex-col gap-2">
@@ -44,7 +52,7 @@ const Login = () => {
         <img
           src={googleIcon}
           alt="google"
-          className="w-7 h-7 mt-3"
+          className="w-7 h-7 mt-3 cursor-pointer"
           onClick={headerGoogleAuth}
         />
         <Link to="/signup">
