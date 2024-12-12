@@ -17,9 +17,15 @@ const Login = () => {
   const headerGoogleAuth = async () => {
     console.log("Starting Google Auth login...");
     try {
-      const response = await axios.get(`http://localhost:8080/api/auth/google`);
+      const response = await axios.get(
+        `https://coding-round-generator-zr9x.vercel.app/api/auth/google`,
+        {
+          withCredentials: true,
+        }
+      );
       console.log("Google Auth response:", response);
     } catch (error) {
+      console.error("Error during Google Auth login:", error);
       console.error("Error during Google Auth login:", error.message);
     }
   };
