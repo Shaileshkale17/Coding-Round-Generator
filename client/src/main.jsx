@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Singup from "./pages/Singup";
 import TestFromPage from "./pages/TestFromPage";
 import ProfilePage from "./pages/profilePage";
+import NotFoundPage from "./pages/NotFoundPage";
 const routers = createBrowserRouter([
   {
     path: "/",
@@ -29,7 +30,7 @@ const routers = createBrowserRouter([
         element: <ProfilePage />,
       },
     ],
-    errorElement: "error message ",
+    errorElement: <NotFoundPage />,
   },
 ]);
 createRoot(document.getElementById("root")).render(
