@@ -5,44 +5,64 @@ import Button from "../components/Button";
 import googleIcon from "../assets/devicon_google.svg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
   const Navigate = useNavigate();
   const headerLogin = async (e) => {
     e.preventDefault();
+
+    // Basic validation
+    if (!email || !password) {
+      toast.error("Email and Password are required");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `https://coding-round-generator-zr9x.vercel.app/api/auth/login`,
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
 
-      let tocken = localStorage.setItem("token", response.data.data.token);
-      console.log(response.data.data.token);
-      console.log("tocken", tocken);
+      // Extract token from the response
+      const token = response.data?.data?.token;
 
-      Navigate("/test-from-page");
+      if (token) {
+        // Save the token to localStorage
+        localStorage.setItem("token", token);
+        // toast.success("Login successful!");
+        // console.log("Token:", token);
+
+        // Navigate to the desired page
+        Navigate("/test-from-page");
+      } else {
+        toast.error("Login failed. Please try again.");
+      }
     } catch (error) {
-      console.error(error.message);
+      // Handle errors from the server
+      const errorMessage =
+        error.response?.data?.message || "An unexpected error occurred";
+      toast.error(`Login failed: ${errorMessage}`);
     }
   };
 
-  // ! Network Authentication Error
   const headerGoogleAuth = async () => {
-    console.log("Starting Google Auth login...");
-    try {
-      const response = await axios.get(
-        `https://coding-round-generator-zr9x.vercel.app/api/auth/google`
-      );
-      console.log("Google Auth response:", response);
-    } catch (error) {
-      console.error("Error during Google Auth login:", error);
-      console.error("Error during Google Auth login:", error.message);
-    }
+    // try {
+    const response = await axios.get(`http://localhost:8080/api/auth/google`, {
+      withCredentials: true,
+    });
+    console.log("Google Auth response:", response);
+
+    // } catch (error) {
+    //   // const errorMessage =
+    //   //   error.response?.data?.message || "An unexpected error occurred";
+    //   // toast.error(`Login failed: ${errorMessage}`);
+    //   toast.info(
+    //     "I am currently occupied with work, which may prevent you from logging in. Thank you for your patience and understanding."
+    //   );
+    // }
   };
 
   return (

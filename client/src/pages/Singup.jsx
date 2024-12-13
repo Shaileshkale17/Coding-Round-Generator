@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import googleIcon from "../assets/devicon_google.svg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Singup = () => {
   const [email, SetEmail] = useState("");
@@ -12,18 +13,36 @@ const Singup = () => {
   const [name, SetName] = useState("");
   const navigate = useNavigate();
 
-  const headerSingupAuth = async (e) => {
+  const headerSignupAuth = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      "https://coding-round-generator-zr9x.vercel.app/api/auth/register",
-      {
-        email,
-        password,
-        name,
-      }
-    );
 
-    console.log(response);
+    // Basic field validation
+    if (!email || !password || !name) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://coding-round-generator-zr9x.vercel.app/api/auth/register",
+        { email, password, name }
+      );
+
+      // Accessing response data
+      const { success, message } = response.data;
+
+      if (success) {
+        toast.success("Registration successful!");
+        navigate("/"); // Navigate to login or home page
+      } else {
+        toast.error(message || "Signup failed");
+      }
+    } catch (error) {
+      // Handling errors from the server
+      const errorMessage =
+        error.response?.data?.message || "An unexpected error occurred";
+      toast.error(`Enter valid credentials: ${errorMessage}`);
+    }
   };
 
   const headerGoogleAuth = () => {
@@ -39,7 +58,7 @@ const Singup = () => {
         />
         <form
           className="flex  items-center justify-center flex-col gap-3"
-          onSubmit={headerSingupAuth}>
+          onSubmit={headerSignupAuth}>
           <IndexBox
             label="Full Name"
             name="name"
