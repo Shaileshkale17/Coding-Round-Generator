@@ -95,7 +95,7 @@ const Navbar = () => {
             />
           </div>
         ) : (
-          <p className="hidden md:block">Not logged in</p>
+          <p className="hidden md:block"></p>
         )}
       </div>
     </div>
