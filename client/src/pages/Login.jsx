@@ -10,18 +10,33 @@ const Login = () => {
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
   const Navigate = useNavigate();
-  const headerLogin = (e) => {
+  const headerLogin = async (e) => {
     e.preventDefault();
-    Navigate("/test-from-page");
+    try {
+      const response = await axios.post(
+        `https://coding-round-generator-zr9x.vercel.app/api/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
+
+      let tocken = localStorage.setItem("token", response.data.data.token);
+      console.log(response.data.data.token);
+      console.log("tocken", tocken);
+
+      Navigate("/test-from-page");
+    } catch (error) {
+      console.error(error.message);
+    }
   };
+
+  // ! Network Authentication Error
   const headerGoogleAuth = async () => {
     console.log("Starting Google Auth login...");
     try {
       const response = await axios.get(
-        `https://coding-round-generator-zr9x.vercel.app/api/auth/google`,
-        {
-          withCredentials: true,
-        }
+        `https://coding-round-generator-zr9x.vercel.app/api/auth/google`
       );
       console.log("Google Auth response:", response);
     } catch (error) {

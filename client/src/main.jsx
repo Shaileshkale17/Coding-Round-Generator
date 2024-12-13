@@ -8,6 +8,7 @@ import Singup from "./pages/Singup";
 import TestFromPage from "./pages/TestFromPage";
 import ProfilePage from "./pages/profilePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProtectedRoute from "./util/Auth_tocken";
 
 const routers = createBrowserRouter([
   {
@@ -25,11 +26,19 @@ const routers = createBrowserRouter([
       },
       {
         path: "/test-from-page",
-        element: <TestFromPage />,
+        element: (
+          <ProtectedRoute>
+            <TestFromPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/profile-page",
-        element: <ProfilePage />,
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

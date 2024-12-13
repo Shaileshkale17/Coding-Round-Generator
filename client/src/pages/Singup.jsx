@@ -3,11 +3,28 @@ import Heading from "../components/Heading";
 import IndexBox from "../components/IndexBox";
 import Button from "../components/Button";
 import googleIcon from "../assets/devicon_google.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Singup = () => {
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
+  const [name, SetName] = useState("");
+  const navigate = useNavigate();
+
+  const headerSingupAuth = async (e) => {
+    e.preventDefault();
+    const response = await axios.post(
+      "https://coding-round-generator-zr9x.vercel.app/api/auth/register",
+      {
+        email,
+        password,
+        name,
+      }
+    );
+
+    console.log(response);
+  };
 
   const headerGoogleAuth = () => {
     console.log("Google Auth");
@@ -20,7 +37,17 @@ const Singup = () => {
           heading_type="h1"
           style="font-bold text-xl mt-5"
         />
-        <form className="flex  items-center justify-center flex-col gap-3">
+        <form
+          className="flex  items-center justify-center flex-col gap-3"
+          onSubmit={headerSingupAuth}>
+          <IndexBox
+            label="Full Name"
+            name="name"
+            id="name"
+            type="text"
+            inputValue={name}
+            setInput={SetName}
+          />
           <IndexBox
             label="Email ID"
             name="email"
@@ -28,14 +55,6 @@ const Singup = () => {
             type="email"
             inputValue={email}
             setInput={SetEmail}
-          />
-          <IndexBox
-            label="Password"
-            name="password"
-            id="password"
-            type="password"
-            inputValue={password}
-            setInput={SetPassword}
           />
           <IndexBox
             label="Password"

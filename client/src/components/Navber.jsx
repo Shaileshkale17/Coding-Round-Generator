@@ -1,33 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoImage from "../assets/logo.png";
-import user from "../assets/freepik__candid-image-photography-natural-textures-highly-r__40109.jpeg";
+import userImage from "../assets/freepik__candid-image-photography-natural-textures-highly-r__40109.jpeg";
 
-const Navber = () => {
-  const [Tocken, setTocken] = useState("dsfhjdshfj");
+const Navbar = () => {
+  const [token, setToken] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Uncomment to fetch token from local storage if needed
-    // setTocken(localStorage.getItem("tocken"));
-  }, []);
+    const storedToken = localStorage.getItem("token");
+    if (!storedToken) {
+      navigate("/");
+    } else {
+      setToken(storedToken);
+    }
+  }, [navigate, localStorage.getItem("token")]);
 
-  const HaederLogout = () => {
-    console.log("HaederLogout");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    navigate("/");
   };
 
   return (
     <div className="flex justify-between items-center py-4 px-6 bg-black text-white md:text-base text-sm">
-      {/* Logo Section */}
-      <Link to="/" className="flex items-center gap-3">
+      <Link
+        to={!token ? "/" : "/test-from-page"}
+        className="flex items-center gap-3">
         <img
           src={logoImage}
-          alt="logo"
+          alt="Company Logo"
           className="w-10 h-10 rounded-full bg-white"
         />
-        <h1 className="md:text-lg text-sm font-bold ">
-          Coding Round Generator
-        </h1>
+        <h1 className="md:text-lg text-sm font-bold">Coding Round Generator</h1>
       </Link>
 
       {/* Hamburger Menu for Mobile */}
@@ -35,7 +41,8 @@ const Navber = () => {
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="focus:outline-none"
-          aria-label="Toggle Menu">
+          aria-label="Toggle Menu"
+          aria-expanded={isMenuOpen}>
           <svg
             className="w-6 h-6"
             fill="none"
@@ -57,8 +64,8 @@ const Navber = () => {
       <div
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } md:flex flex-col md:flex-row gap-6 md:gap-8 md:relative absolute top-[4.5rem] right-4 md:top-0 md:right-0 bg-black md:bg-transparent z-50 md:z-auto rounded-md md:rounded-none py-4 md:py-0 px-6 md:px-0 w-[18rem] md:w-auto  `}>
-        {Tocken ? (
+        } md:flex flex-col md:flex-row gap-6 md:gap-8 md:relative absolute top-[4.5rem] right-4 md:top-0 md:right-0 bg-black md:bg-transparent z-50 md:z-auto rounded-md md:rounded-none py-4 md:py-0 px-6 md:px-0 w-[18rem] md:w-auto`}>
+        {token ? (
           <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
             <ul className="flex flex-col md:flex-row gap-5">
               <li>
@@ -76,14 +83,14 @@ const Navber = () => {
                 </Link>
               </li>
               <li
-                onClick={HaederLogout}
+                onClick={handleLogout}
                 className="cursor-pointer hover:underline text-white md:text-inherit">
                 Logout
               </li>
             </ul>
             <img
-              src={user}
-              alt="user"
+              src={userImage}
+              alt="User Avatar"
               className="w-10 h-10 rounded-full bg-cover"
             />
           </div>
@@ -95,4 +102,4 @@ const Navber = () => {
   );
 };
 
-export default Navber;
+export default Navbar;
