@@ -6,6 +6,8 @@ import session from "express-session";
 import ConnectionDB from "./Data/index.js";
 import QuestionsRouter from "../server/routers/Questions.routes.js";
 import AuthRouter from "./routers/auth.routes.js";
+import DifficultyRouters from "./routers/Difficulty.routes.js";
+import technologyRouters from "./routers/technology.routes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -43,6 +45,8 @@ app.use(passport.session());
 
 // Routers
 app.use("/api", QuestionsRouter);
+app.use("/api", DifficultyRouters);
+app.use("/api", technologyRouters);
 app.use("/api", AuthRouter);
 
 // Database connection and server startup

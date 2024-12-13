@@ -1,9 +1,6 @@
 import { Technology } from "../model/Technology.model.js";
 import { ApiResponse } from "../util/ApiResponse.util.js";
 import { asyncHandler } from "../util/asyncHandler.util.js";
-import express from "express";
-
-const router = express.Router();
 
 // Create a new technology
 export const create = asyncHandler(async (req, res) => {
