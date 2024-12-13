@@ -49,20 +49,22 @@ const Login = () => {
   };
 
   const headerGoogleAuth = async () => {
-    // try {
-    const response = await axios.get(`http://localhost:8080/api/auth/google`, {
-      withCredentials: true,
-    });
-    console.log("Google Auth response:", response);
-
-    // } catch (error) {
-    //   // const errorMessage =
-    //   //   error.response?.data?.message || "An unexpected error occurred";
-    //   // toast.error(`Login failed: ${errorMessage}`);
-    //   toast.info(
-    //     "I am currently occupied with work, which may prevent you from logging in. Thank you for your patience and understanding."
-    //   );
-    // }
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/auth/google`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("Google Auth response:", response);
+    } catch (error) {
+      // const errorMessage =
+      //   error.response?.data?.message || "An unexpected error occurred";
+      // toast.error(`Login failed: ${errorMessage}`);
+      toast.info(
+        "I am currently occupied with work, which may prevent you from logging in. Thank you for your patience and understanding."
+      );
+    }
   };
 
   return (
