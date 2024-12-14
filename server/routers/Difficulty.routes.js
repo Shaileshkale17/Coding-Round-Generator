@@ -8,9 +8,9 @@ import {
 
 const routers = express.Router();
 
-routers.post("/create", createDifficulty);
-routers.get("/full-data", getData);
-routers.put("/update/:id", updated);
-routers.delete("/delete/:id", deleteDifficulty);
+routers.post("/difficulty/create", createDifficulty);
+routers.get("/difficulty/full-data", getData);
+routers.put("/difficulty/update/:id", updated);
+routers.delete("/difficulty/delete/:id", deleteDifficulty);
 
 export default routers;

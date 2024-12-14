@@ -8,9 +8,9 @@ import {
 
 const routers = express.Router();
 
-routers.post("/create", create);
-routers.get("/full-data", getData);
-routers.put("/update/:id", updatedData);
-routers.delete("/delete/:id", deleted);
+routers.post("/technology/create", create);
+routers.get("/technology/full-data", getData);
+routers.put("/technology/update/:id", updatedData);
+routers.delete("/technology/delete/:id", deleted);
 
 export default routers;

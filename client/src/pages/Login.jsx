@@ -51,7 +51,7 @@ const Login = () => {
   const headerGoogleAuth = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/auth/google`,
+        `https://coding-round-generator-zr9x.vercel.app/api/auth/google`,
         {
           withCredentials: true,
         }
