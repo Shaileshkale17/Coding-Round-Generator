@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectBox from "../components/SelectBox";
 import Button from "../components/Button";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const TestFromPage = () => {
   const [TopicArray, setTopicArray] = useState([]);
@@ -116,12 +117,6 @@ const TestFromPage = () => {
     },
   ];
 
-  const Difficulty_Array = [
-    { id: 1, value: "easy", label: "Easy", add_date: "2024-12-06" },
-    { id: 2, value: "medium", label: "Medium", add_date: "2024-12-06" },
-    { id: 3, value: "hard", label: "Hard", add_date: "2024-12-06" },
-  ];
-
   const Topic_Array = [
     { id: 1, value: "strings", label: "Strings", add_date: "2024-12-06" },
     { id: 2, value: "algorithms", label: "Algorithms", add_date: "2024-12-06" },
@@ -154,19 +149,34 @@ const TestFromPage = () => {
   ];
 
   const DifficultyAPI = async () => {
-    const Difficulty = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/difficulty/full-data`
-    );
+    try {
+      const Difficulty = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/difficulty/full-data`
+      );
 
-    setDifficultyArray(Difficulty.data.data);
+      setDifficultyArray(Difficulty.data.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+  const TechnologyAPI = async () => {
+    try {
+      const Technology = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/technology/full-data`
+      );
+
+      console.log("Technology", Technology.data.data);
+      setTechnologyArray(Technology.data.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
     DifficultyAPI();
+    TechnologyAPI();
     setTopicArray(Topic_Array);
-    setDifficultyArray(Difficulty_Array);
-    setTechnologyArray(Technology_Array);
-  }, []);
+  }, [setDifficultyArray, setTechnologyArray, setTopicArray]);
 
   const getRandomTask = (filteredTasks) => {
     const randomIndex = Math.floor(Math.random() * filteredTasks.length);

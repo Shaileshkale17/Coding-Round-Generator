@@ -45,7 +45,9 @@ export const getData = asyncHandler(async (req, res) => {
     const technologies = await Technology.find({});
     res
       .status(200)
-      .json(new ApiResponse(true, "Fetched all technologies", technologies));
+      .json(
+        new ApiResponse(200, technologies, "Fetched all technologies", true)
+      );
   } catch (error) {
     res.status(500).json({ status: 500, message: "Server error", error });
   }
