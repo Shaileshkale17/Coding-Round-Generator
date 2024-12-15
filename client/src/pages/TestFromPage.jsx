@@ -158,7 +158,7 @@ const TestFromPage = () => {
       `${import.meta.env.VITE_BACKEND_URL}/difficulty/full-data`
     );
 
-    console.log("difficulty/full-data", Difficulty);
+    setDifficultyArray(Difficulty.data.data);
   };
 
   useEffect(() => {

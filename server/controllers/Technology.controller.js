@@ -15,8 +15,8 @@ export const create = asyncHandler(async (req, res) => {
         .json(
           new ApiResponse(
             false,
-            "Technology already exists.",
-            existingTechnology
+            existingTechnology,
+            "Technology already exists."
           )
         );
     }
@@ -29,7 +29,7 @@ export const create = asyncHandler(async (req, res) => {
       .json(
         new ApiResponse(
           201,
-          ...savedTechnology,
+          savedTechnology,
           "Technology added successfully",
           true
         )
@@ -74,7 +74,7 @@ export const updatedData = asyncHandler(async (req, res) => {
       .json(
         new ApiResponse(
           200,
-          ...updatedTechnology,
+          updatedTechnology,
           "Technology updated successfully",
           true
         )
@@ -102,7 +102,7 @@ export const deleted = asyncHandler(async (req, res) => {
       .json(
         new ApiResponse(
           200,
-          ...deletedTechnology,
+          deletedTechnology,
           "Technology deleted successfully",
           true
         )
