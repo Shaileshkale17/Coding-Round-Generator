@@ -63,7 +63,7 @@ export const getdata = asyncHandler(async (req, res) => {
   const data = await Questions.find({});
   res
     .status(200)
-    .json(new ApiResponse(200, data, "Retrieved all questions", true));
+    .json(new ApiResponse(200, ...data, "Retrieved all questions", true));
 });
 
 export const UpdateQuestions = asyncHandler(async (req, res) => {
@@ -87,15 +87,6 @@ export const UpdateQuestions = asyncHandler(async (req, res) => {
     completion_time,
   } = req.body;
 
-  console.log({
-    label,
-    value,
-    technology,
-    difficulty,
-    description,
-    tags,
-    completion_time,
-  });
   if (
     !validateFields([
       label,
@@ -138,7 +129,9 @@ export const UpdateQuestions = asyncHandler(async (req, res) => {
 
   res
     .status(200)
-    .json(new ApiResponse(200, updatedData, "Data updated successfully", true));
+    .json(
+      new ApiResponse(200, ...updatedData, "Data updated successfully", true)
+    );
 });
 
 export const QuestionsDeleted = asyncHandler(async (req, res) => {
@@ -163,7 +156,7 @@ export const QuestionsDeleted = asyncHandler(async (req, res) => {
 
   res
     .status(200)
-    .json(new ApiResponse(200, deleted, "Data deleted successfully", true));
+    .json(new ApiResponse(200, ...deleted, "Data deleted successfully", true));
 });
 
 export const randomOne = asyncHandler(async (req, res) => {
@@ -204,7 +197,7 @@ export const randomOne = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        randomTask,
+        ...randomTask,
         "Random task retrieved successfully",
         true
       )

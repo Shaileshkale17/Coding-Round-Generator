@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SelectBox from "../components/SelectBox";
 import Button from "../components/Button";
+import axios from "axios";
 
 const TestFromPage = () => {
   const [TopicArray, setTopicArray] = useState([]);
@@ -152,7 +153,16 @@ const TestFromPage = () => {
     },
   ];
 
+  const DifficultyAPI = async () => {
+    const Difficulty = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/difficulty/full-data`
+    );
+
+    console.log("difficulty/full-data", Difficulty);
+  };
+
   useEffect(() => {
+    DifficultyAPI();
     setTopicArray(Topic_Array);
     setDifficultyArray(Difficulty_Array);
     setTechnologyArray(Technology_Array);

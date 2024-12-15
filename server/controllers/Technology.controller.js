@@ -27,10 +27,15 @@ export const create = asyncHandler(async (req, res) => {
     res
       .status(201)
       .json(
-        new ApiResponse(true, "Technology added successfully", savedTechnology)
+        new ApiResponse(
+          201,
+          ...savedTechnology,
+          "Technology added successfully",
+          true
+        )
       );
   } catch (error) {
-    res.status(500).json(new ApiResponse(false, "Server error", error.message));
+    res.status(500).json({ status: 500, message: "Server error", error });
   }
 });
 
@@ -42,7 +47,7 @@ export const getData = asyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(true, "Fetched all technologies", technologies));
   } catch (error) {
-    res.status(500).json(new ApiResponse(false, "Server error", error.message));
+    res.status(500).json({ status: 500, message: "Server error", error });
   }
 });
 
@@ -68,13 +73,14 @@ export const updatedData = asyncHandler(async (req, res) => {
       .status(200)
       .json(
         new ApiResponse(
-          true,
+          200,
+          ...updatedTechnology,
           "Technology updated successfully",
-          updatedTechnology
+          true
         )
       );
   } catch (error) {
-    res.status(500).json(new ApiResponse(false, "Server error", error.message));
+    res.status(500).json({ status: 500, message: "Server error", error });
   }
 });
 
@@ -95,12 +101,13 @@ export const deleted = asyncHandler(async (req, res) => {
       .status(200)
       .json(
         new ApiResponse(
-          true,
+          200,
+          ...deletedTechnology,
           "Technology deleted successfully",
-          deletedTechnology
+          true
         )
       );
   } catch (error) {
-    res.status(500).json(new ApiResponse(false, "Server error", error.message));
+    res.status(500).json({ status: 500, message: "Server error", error });
   }
 });

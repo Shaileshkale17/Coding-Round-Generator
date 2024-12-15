@@ -33,7 +33,7 @@ export const createDifficulty = asyncHandler(async (req, res) => {
 
     return res
       .status(201)
-      .json(new ApiResponse(201, savedData, "success", true));
+      .json(new ApiResponse(201, ...savedData, "success", true));
   } catch (error) {
     return res.status(500).json({
       status: 500,
@@ -49,7 +49,7 @@ export const getData = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, data, "Data fetched successfully", true));
+      .json(new ApiResponse(200, ...data, "Data fetched successfully", true));
   } catch (error) {
     return res.status(500).json({
       status: 500,
@@ -84,11 +84,11 @@ export const updated = asyncHandler(async (req, res) => {
       });
     }
 
-    res.status(200).json({
-      status: 200,
-      message: "Update successful",
-      data: updatedData,
-    });
+    res
+      .status(200)
+      .json(
+        new ApiResponse(200, ...updatedData, "Data updated successfully", true)
+      );
   } catch (error) {
     res.status(500).json({
       status: 500,
@@ -113,7 +113,9 @@ export const deleteDifficulty = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, deletedRecord, "Deleted successfully", true));
+      .json(
+        new ApiResponse(200, ...deletedRecord, "Deleted successfully", true)
+      );
   } catch (error) {
     return res.status(500).json({
       status: 500,
