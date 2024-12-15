@@ -18,6 +18,7 @@ const Navbar = () => {
   }, [navigate, localStorage.getItem("token")]);
 
   const handleLogout = () => {
+    setIsMenuOpen(false);
     localStorage.removeItem("token");
     setToken(null);
     navigate("/");
@@ -37,29 +38,34 @@ const Navbar = () => {
       </Link>
 
       {/* Hamburger Menu for Mobile */}
-      <div className="md:hidden">
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="focus:outline-none"
-          aria-label="Toggle Menu"
-          aria-expanded={isMenuOpen}>
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d={
-                isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"
-              }></path>
-          </svg>
-        </button>
+      <div>
+        {token && (
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="focus:outline-none"
+              aria-label="Toggle Menu"
+              aria-expanded={isMenuOpen}>
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={
+                    isMenuOpen
+                      ? "M6 18L18 6M6 6l12 12"
+                      : "M4 6h16M4 12h16M4 18h16"
+                  }></path>
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
-
       {/* Navbar Links */}
       <div
         className={`${
