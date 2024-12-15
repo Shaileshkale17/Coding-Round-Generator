@@ -1,4 +1,4 @@
-import { Topic } from "../model/Topic.model";
+import { Topic } from "../model/Topic.model.js";
 import { ApiResponse } from "../util/ApiResponse.util.js";
 import { asyncHandler } from "../util/asyncHandler.util.js";
 
