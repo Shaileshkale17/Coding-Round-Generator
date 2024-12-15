@@ -92,12 +92,12 @@ const Login = () => {
           />
           <Button type="submit" label="Login" />
         </form>
-        <img
+        {/* <img
           src={googleIcon}
           alt="google"
           className="w-7 h-7 mt-3 cursor-pointer"
           onClick={headerGoogleAuth}
-        />
+        /> */}
         <Link to="/signup">
           <p className="text-sm cursor-pointer mt-5">create your Account</p>
         </Link>

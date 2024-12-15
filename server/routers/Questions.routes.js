@@ -11,7 +11,7 @@ const routers = express.Router();
 
 routers.post("/questions/create", createQuestion);
 routers.get("/questions/full-data", getdata);
-routers.get("/questions/randomOne", randomOne);
+routers.post("/questions/randomOne", randomOne);
 routers.put("/questions/update/:id", UpdateQuestions);
 routers.delete("/questions/delete/:id", QuestionsDeleted);
 

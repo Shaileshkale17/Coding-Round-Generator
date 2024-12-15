@@ -9,8 +9,8 @@ const SelectBox = ({ label, optionMap, setInput, inputValue }) => {
         <option value="" disabled>
           Select {label}
         </option>
-        {optionMap.map((option) => (
-          <option key={option.id} value={option.value}>
+        {optionMap.map((option, i) => (
+          <option key={i} value={option.value}>
             {option.label}
           </option>
         ))}

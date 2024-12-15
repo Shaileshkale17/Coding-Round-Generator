@@ -8,6 +8,7 @@ import QuestionsRouter from "../server/routers/Questions.routes.js";
 import AuthRouter from "./routers/auth.routes.js";
 import DifficultyRouters from "./routers/Difficulty.routes.js";
 import technologyRouters from "./routers/technology.routes.js";
+import topicRouters from "./routers/Topic.routes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -48,6 +49,7 @@ app.use("/api", QuestionsRouter);
 app.use("/api", DifficultyRouters);
 app.use("/api", technologyRouters);
 app.use("/api", AuthRouter);
+app.use("/api", topicRouters);
 
 // Database connection and server startup
 ConnectionDB()

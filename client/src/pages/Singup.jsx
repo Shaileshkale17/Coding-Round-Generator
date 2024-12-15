@@ -83,14 +83,14 @@ const Singup = () => {
             inputValue={password}
             setInput={SetPassword}
           />
-          <Button type="submit" label="Login" />
+          <Button type="submit" label="Sing up" />
         </form>
-        <img
+        {/* <img
           src={googleIcon}
           alt="google"
           className="w-7 h-7 mt-3"
           onClick={headerGoogleAuth}
-        />
+        /> */}
         <Link to="/">
           <p className="text-sm cursor-pointer mt-5 mb-5">Login your Account</p>
         </Link>
