@@ -50,7 +50,7 @@ const Singup = () => {
   };
   return (
     <div className="min-h-[83.9vh]  flex justify-center items-center">
-      <div className="h-4/6 w-2/6   bg-transparent  border  border-solid border-black rounded-lg flex items-center justify-center flex-col gap-2">
+      <div className="  md:w-2/4 w-[88.333333%] h-[74.666667%]  bg-transparent  border  border-solid border-black rounded-lg flex items-center justify-center flex-col gap-2">
         <Heading
           heading="Sing up"
           heading_type="h1"

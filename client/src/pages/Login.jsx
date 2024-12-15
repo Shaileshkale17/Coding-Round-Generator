@@ -69,7 +69,7 @@ const Login = () => {
 
   return (
     <div className="h-[83.9vh] flex justify-center items-center">
-      <div className="md:h-4/6 md:w-2/6 w-[88.333333%] h-[74.666667%]  bg-transparent  border  border-solid border-black rounded-lg flex items-center justify-center flex-col gap-2">
+      <div className=" md:w-2/4 w-[88.333333%] h-[74.666667%]  bg-transparent  border  border-solid border-black rounded-lg flex items-center justify-center flex-col gap-2">
         <Heading heading="Login" heading_type="h1" style="font-bold text-xl" />
         <form
           className="flex items-center justify-center flex-col gap-7"
