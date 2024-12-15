@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `https://coding-round-generator-zr9x.vercel.app/api/auth/login`,
+        `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
         { email, password }
       );
 
@@ -51,7 +51,7 @@ const Login = () => {
   const headerGoogleAuth = async () => {
     try {
       const response = await axios.get(
-        `https://coding-round-generator-zr9x.vercel.app/api/auth/google`,
+        `${import.meta.env.VITE_BACKEND_URL}/auth/google`,
         {
           withCredentials: true,
         }
