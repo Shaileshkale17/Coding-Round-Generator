@@ -40,20 +40,7 @@ const Add_Question = () => {
     e.preventDefault();
 
     // Basic validation
-    console.log(
-      "label",
-      label,
-      "value",
-      value,
-      "Technology",
-      Technology,
-      "Difficulty",
-      Difficulty,
-      "description",
-      description,
-      "Completion_Time",
-      Completion_Time
-    );
+
     if (
       !label ||
       !value ||
@@ -65,13 +52,12 @@ const Add_Question = () => {
       toast.error("Please fill out all required fields.");
       return;
     }
-
     try {
       const result = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/questions/create`,
         {
           label,
-          value,
+          value: value.split(" ").join("_"),
           technology: Technology,
           difficulty: Difficulty,
           description,
