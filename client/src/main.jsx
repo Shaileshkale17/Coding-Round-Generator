@@ -9,6 +9,7 @@ import TestFromPage from "./pages/TestFromPage";
 import ProfilePage from "./pages/profilePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProtectedRoute from "./util/Auth_tocken";
+import Add_Question from "./pages/Add_Question";
 
 const routers = createBrowserRouter([
   {
@@ -18,29 +19,42 @@ const routers = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Login />,
+        element: <TestFromPage />,
+        errorElement: <NotFoundPage />,
       },
       {
-        path: "/signup",
-        element: <Singup />,
-      },
-      {
-        path: "/test-from-page",
-        element: (
-          <ProtectedRoute>
-            <TestFromPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/profile-page",
-        element: (
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        ),
+        path: "/add",
+        element: <Add_Question />,
+        errorElement: <NotFoundPage />,
       },
     ],
+
+    // children: [
+    //   {
+    //     path: "/",
+    //     element: <Login />,
+    //   },
+    //   {
+    //     path: "/signup",
+    //     element: <Singup />,
+    //   },
+    //   {
+    //     path: "/test-from-page",
+    //     element: (
+    //       <ProtectedRoute>
+    //         <TestFromPage />
+    //       </ProtectedRoute>
+    //     ),
+    //   },
+    //   {
+    //     path: "/profile-page",
+    //     element: (
+    //       <ProtectedRoute>
+    //         <ProfilePage />
+    //       </ProtectedRoute>
+    //     ),
+    //   },
+    // ],
   },
 ]);
 createRoot(document.getElementById("root")).render(

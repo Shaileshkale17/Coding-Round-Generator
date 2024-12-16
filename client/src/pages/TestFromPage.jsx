@@ -5,102 +5,103 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const TestFromPage = () => {
-  const [TopicArray, setTopicArray] = useState([]);
-  const [DifficultyArray, setDifficultyArray] = useState([]);
-  const [TechnologyArray, setTechnologyArray] = useState([]);
-  const [Topic, setTopic] = useState("");
-  const [Difficulty, setDifficulty] = useState("");
-  const [Technology, setTechnology] = useState("");
+  const [topicArray, setTopicArray] = useState([]);
+  const [difficultyArray, setDifficultyArray] = useState([]);
+  const [technologyArray, setTechnologyArray] = useState([]);
+  const [topic, setTopic] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [technology, setTechnology] = useState("");
   const [randomTask, setRandomTask] = useState(null);
+  const [loadingTask, setLoadingTask] = useState(false);
+  const [loadingOptions, setLoadingOptions] = useState(false);
 
+  // Helper function to capitalize the first letter of a string
   function capitalizeFirstLetter(string) {
     if (!string) return ""; // Handle empty strings
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  const DifficultyAPI = async () => {
+  // Reusable API fetcher
+  const fetchData = async (endpoint, setState) => {
     try {
-      const Difficulty = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/difficulty/full-data`
+      setLoadingOptions(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/${endpoint}`
       );
-
-      setDifficultyArray(Difficulty.data.data);
+      setState(response.data.data);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(`Failed to fetch ${endpoint}: ${error.message}`);
+    } finally {
+      setLoadingOptions(false);
     }
   };
 
-  const TechnologyAPI = async () => {
-    try {
-      const Technology = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/technology/full-data`
-      );
-
-      setTechnologyArray(Technology.data.data);
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-  const TopicAPI = async () => {
-    try {
-      const Technology = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/topic/full-data`
-      );
-      setTopicArray(Technology.data.data);
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
+  // Fetch random task based on selected filters
   const getRandomTasks = async (e) => {
     e.preventDefault();
+    if (!technology || !difficulty || !topic) {
+      toast.error("Please select all filters.");
+      return;
+    }
+
+    setLoadingTask(true);
     try {
-      const Random = await axios.post(
+      const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/questions/randomOne`,
         {
-          Technology: capitalizeFirstLetter(Technology),
-          Difficulty: capitalizeFirstLetter(Difficulty),
-          Topic: capitalizeFirstLetter(Topic),
+          Technology: capitalizeFirstLetter(technology),
+          Difficulty: capitalizeFirstLetter(difficulty),
+          Topic: capitalizeFirstLetter(topic),
         }
       );
-      setRandomTask(Random.data.data);
+      setRandomTask(response.data.data);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(`Failed to fetch task: ${error.response.data.message}`);
+    } finally {
+      setLoadingTask(false);
     }
   };
 
+  // Fetch dropdown options on component mount
   useEffect(() => {
-    DifficultyAPI();
-    TechnologyAPI();
-    TopicAPI();
-  }, [setDifficultyArray, setTechnologyArray, setTopicArray]);
+    fetchData("difficulty/full-data", setDifficultyArray);
+    fetchData("technology/full-data", setTechnologyArray);
+    fetchData("topic/full-data", setTopicArray);
+  }, []);
 
   return (
     <div className="h-[83.9vh] flex flex-col items-center px-4 sm:px-8 md:pt-5">
+      {/* Form for filters */}
       <form
         className="flex flex-col sm:flex-row gap-5 items-center justify-center flex-wrap w-full"
         onSubmit={getRandomTasks}>
         <SelectBox
           label="Topic"
-          optionMap={TopicArray}
+          optionMap={topicArray}
           setInput={setTopic}
-          inputValue={Topic}
+          inputValue={topic}
         />
         <SelectBox
           label="Difficulty"
-          optionMap={DifficultyArray}
+          optionMap={difficultyArray}
           setInput={setDifficulty}
-          inputValue={Difficulty}
+          inputValue={difficulty}
         />
         <SelectBox
           label="Technology"
-          optionMap={TechnologyArray}
+          optionMap={technologyArray}
           setInput={setTechnology}
-          inputValue={Technology}
+          inputValue={technology}
         />
-        <Button type="submit" label="Filter" style="px-5 py-2 mt-5" />
+        <Button
+          type="submit"
+          label="Filter"
+          style="px-5 py-2 mt-5"
+          disabled={!topic || !difficulty || !technology || loadingOptions}
+        />
       </form>
 
+      {/* Display the random task in a table */}
       <div className="overflow-x-auto w-full mt-10">
         <table className="border-collapse border border-gray-300 w-full text-left">
           <thead>
@@ -116,7 +117,13 @@ const TestFromPage = () => {
             </tr>
           </thead>
           <tbody>
-            {randomTask ? (
+            {loadingTask ? (
+              <tr>
+                <td colSpan="6" className="text-center py-4">
+                  Loading task...
+                </td>
+              </tr>
+            ) : randomTask ? (
               <tr>
                 <td className="border border-gray-300 px-4 py-2">
                   {randomTask.label}
@@ -139,7 +146,7 @@ const TestFromPage = () => {
               </tr>
             ) : (
               <tr>
-                <td className="border border-gray-300 px-4 py-2" colSpan="6">
+                <td colSpan="6" className="text-center py-4">
                   No tasks found.
                 </td>
               </tr>

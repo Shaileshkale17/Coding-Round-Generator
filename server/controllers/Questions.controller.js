@@ -24,7 +24,6 @@ export const createQuestion = asyncHandler(async (req, res) => {
     tags,
     completion_time,
   } = req.body;
-
   // Validate required fields
   if (
     !validateFields([

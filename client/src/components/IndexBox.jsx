@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import EyeOpen from "../assets/clarity_eye-line.svg";
 import Eyeclose from "../assets/mdi-light_eye-off.svg";
-const IndexBox = ({ setInput, type, name, id, inputValue, label, style }) => {
+const IndexBox = ({
+  setInput,
+  type,
+  name,
+  id,
+  inputValue,
+  label,
+  style,
+  placeholder,
+}) => {
   const [Eye, setEye] = useState(false);
   const [TypeValue, setTypeValue] = useState(type);
   return (
-    <div className={`flex flex-col gap-2 ${style} relative`}>
+    <div className={`flex flex-col gap-2 ${style} relative`} key={id}>
       <label className="font-medium" htmlFor={id}>
         {label}
       </label>
       <input
-        className="md:w-80 w-60 p-2 border border-solid border-black rounded-lg"
+        className="md:w-80 w-72 p-2 border border-solid border-black rounded-lg"
         type={TypeValue}
         name={name}
+        placeholder={placeholder}
         id={id}
         onChange={(e) => setInput(e.target.value)}
         value={inputValue}
